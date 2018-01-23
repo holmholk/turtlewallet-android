@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NetworkInfoService {
+public class RpcRequestHelper {
     private static int requestId = 0;
 
     private static String SendRpcRequest(String method, String params) {

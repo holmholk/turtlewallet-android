@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.turtlecoin.turtlewallet.service.NetworkInfoService
+import com.turtlecoin.turtlewallet.service.RpcRequestHelper
 import com.turtlecoin.turtlewallet.util.HashFormatter
 import java.text.NumberFormat
 import com.turtlecoin.turtlewallet.util.CurrentLocale
@@ -30,7 +30,7 @@ class NetworkInfoFragment : Fragment() {
 
         val thread = Thread(Runnable {
             try {
-                val lastBlockHeader = NetworkInfoService.GetLastBlockHeader();
+                val lastBlockHeader = RpcRequestHelper.GetLastBlockHeader();
                 val difficulty = lastBlockHeader.result.block_header.difficulty
                 val hashrateDouble = difficulty.div(30.toDouble())
                 val hashrate = HashFormatter(context, hashrateDouble) + "/s"
@@ -38,8 +38,8 @@ class NetworkInfoFragment : Fragment() {
                 val numberFormat  = NumberFormat.getNumberInstance(CurrentLocale(context))
                 val stringDifficuly = numberFormat.format(difficulty)
 
-                val height = NetworkInfoService.GetHeight()
-                val supply = NetworkInfoService.GetSupply(lastBlockHeader.result.block_header.hash)
+                val height = RpcRequestHelper.GetHeight()
+                val supply = RpcRequestHelper.GetSupply(lastBlockHeader.result.block_header.hash)
 
                 activity.runOnUiThread( {
                     activity.findViewById<TextView>(R.id.hash_rate).setText(hashrate)
